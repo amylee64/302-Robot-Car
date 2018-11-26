@@ -1,5 +1,4 @@
-ROBOT TO-DO
-
+---------- ROBOT TO-DO ----------
 SOFTWARE
 - Make motors move:
 	- turn right/left
@@ -17,4 +16,30 @@ PHYSICAL CAR
 EXTRA 
 - Christmas lights?
 - Music/sound coming from car? 
+
+
+
+---------- BASIC CAR ALGORITHM + NOTES ----------
+analogRead: reads analog data (read voltage values)
+digitalRead: reads digital data (1/0)
+pinMode: set pins to either input/output
+
+Power (turn on/off robot):
+	use digitalRead:
+		detect if button is pressed
+
+Obtaining sensor data: 
+	!!!!!!!DEFINE WHICH PINS WILL BE USED FOR OUTPUT/INPUT FIRST (standardize so collaboration on coding is simpler)!!!!!!!!
+	use analog data to control motor on car to change directions, etc.  
+		
+		use distance sensor to detect obstacles/walls 
+			calculate some threshold value to stop car 
+
+		use photoresistor to detect black/white
+			calculate some threshold value that the sensor detects black/white
+			determine when mvmt of car at this threshold 
+
+!!!!be careful which pins are set output and input!!!!
+	some pins on Arduino are meant for certain purposes and not free for use (SERIOUSLY CHECK THE BOARD SCHEMATIC, BURNING OUT PINS IS PAINFUL) 
+
 
