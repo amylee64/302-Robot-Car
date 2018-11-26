@@ -1,0 +1,20 @@
+ROBOT TO-DO
+
+SOFTWARE
+- Make motors move:
+	- turn right/left
+	- go straight (account for drift)
+- Create turning algorithm 
+- Implement sensors (photosensors, distance sensor) into the code 
+
+
+PHYSICAL CAR
+- H-bridge implementation to breadboard and car
+- Placement of sensors on car
+- Placement of Arduino onto car (3-D print mount? Make own from scratch?)
+
+
+EXTRA 
+- Christmas lights?
+- Music/sound coming from car? 
+
