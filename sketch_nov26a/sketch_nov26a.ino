@@ -27,26 +27,35 @@ void setup() {
 
 void loop() {
   // read the value from the sensor:
-   /* if (photoresist1 > off)
-        photo1 = photoresist1 - off;
+   if (analogRead(photoresist1) >= off)
+        photo1 = analogRead(photoresist1) - off;
 
-    else if (photoresist1 < off)
-        photoresist1 = 0;
+    else if (analogRead(photoresist1) < off)
+        photo1 = 0;
   
-    if (photoresist2 > off)
-        photo1 = photoresist2 - off;
+    if (analogRead(photoresist2) >= off)
+        photo2 = analogRead(photoresist2) - off;
 
-    else if (photoresist2 < off)
-        photoresist2 = 0;*/
+    else if (analogRead(photoresist2) < off)
+        photo2 = 0;
+        
+    if (analogRead(photoresist3) >= off)
+        photo3 = analogRead(photoresist3) - off;
+
+    else if (analogRead(photoresist3) < off)
+        photo3 = 0;
+
+/*
+        
   photo1 = 5 * abs(analogRead(photoresist1) - off);
   photo2 = 5 * abs(analogRead(photoresist2) - off);
-  photo3 = 5 * abs(analogRead(photoresist3) - off);
-
+  photo3 = 5 * abs(analogRead(photoresist3) - off);*/
+  
   photo1avg = (photo1 + 3 * photo1avg)/4;
   photo2avg = (photo2 + 3 * photo2avg)/4;
   photo3avg = (photo3 + 3 * photo3avg)/4;
 
-   Serial.println(photo1avg);
+   Serial.println(analogRead(photoresist3));
   Serial.print(" ");
  
   analogWrite(led1, photo1avg);
