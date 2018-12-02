@@ -59,11 +59,11 @@ void loop() {
    digitalWrite(motorR1out, HIGH); 
    
   
- //else {
+ /*else {
     digitalWrite(motorL1out, LOW);
     digitalWrite(motorL2out, LOW);
     digitalWrite(motorR1out, LOW);
     digitalWrite(motorR2out, LOW);
- // }
+ } */
 
 }
