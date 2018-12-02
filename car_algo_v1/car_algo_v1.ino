@@ -4,9 +4,9 @@ const int motorL2out = 3;           // pin 10 = left motor (lead 2)
 const int motorR1out = 4;            // pin 9 = right motor (lead 1)
 const int motorR2out = 5;            // pin 8 = right motor (lead 2)
 
-const int p1 = A0;      // setting each photoresistor and distance sensor to its own 
-const int p2 = A1;      // analog input pin on the Arduino 
-const int p3 = A2;      // *** WE CAN CHANGE THIS IF NEEDED ***
+const int photoresist1 = A0;      // setting each photoresistor and distance sensor to its own 
+const int photoresist2 = A1;      // analog input pin on the Arduino 
+const int photoresist3 = A2;      // *** WE CAN CHANGE THIS IF NEEDED ***
 const int d1 = A3;
 const int d2 = A4;
 const int d3 = A5;
@@ -34,9 +34,9 @@ void setup() {
   pinMode(motorR1out, OUTPUT);           // right motor lead 1 = output
   pinMode(motorR2out, OUTPUT);           // right motor lead 2 = output
 
-  pinMode(p1, INPUT);
-  pinMode(p2, INPUT); 
-  pinMode(p3, INPUT); 
+  pinMode(photoresist1, INPUT);
+  pinMode(photoresist2, INPUT); 
+  pinMode(photoresist3, INPUT); 
   pinMode(d1, INPUT); 
   pinMode(d2, INPUT); 
   pinMode(d3, INPUT); 
