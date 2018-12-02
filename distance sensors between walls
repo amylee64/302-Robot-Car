@@ -25,6 +25,6 @@ void loop() {
   else if(distanceValueRight < value)
       leftMotor -= 20;
   else
-      rightMotor = 200; //whatever output we choose to have it as
+      rightMotor = 200; //whatever % output we choose for speed
       leftMotor = 200;
 }
