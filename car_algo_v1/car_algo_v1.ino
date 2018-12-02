@@ -1,5 +1,4 @@
 // Pin Configurations *** CHANGE IF NEEDED ***
-const int button = 13;                // pin 13 = switch
 const int motorL1out = 11;           // pin 11 = left motor (lead 1)
 const int motorL2out = 10;           // pin 10 = left motor (lead 2)
 const int motorR1out = 9;            // pin 9 = right motor (lead 1)
@@ -21,10 +20,11 @@ int distSen1 = 0;                 // initialize distance sensor values to 0
 int distSen2 = 0;                 // use analogRead in main code        
 int distSen3 = 0;
 
-int leftMotor = 0;                // initialize motor speed for left and right
-int rightMotor = 0;               // write values to these variables to control the car motors
+int leftMotor1 = 0;                // initialize motor speed for left and right to 0
+int leftMotor2 = 0;                // each motor has 2 leads (4 loads) 
+int rightMotor1 = 0;               // write values to these variables to control the car motors
+int rightMotor2 = 0;
 
-int buttonState = 0;              // holds state of the switch (on = 1, off = 0)
 // add more variables as needed
 // need to figure out supplying power to car through Arduino/battery/whatever
 
@@ -35,14 +35,10 @@ void setup() {
   pinMode(motorR2out, OUTPUT);           // right motor lead 2 = output
 
   // insert more pin initializations as needed
-  // somehow set "5V" pins to "HIGH" so Arduino powers car? 
 
 }
 
 void loop() {
-  buttonState = digitalRead(button);    // read whether switch on or off 
-
-  if (buttonState == HIGH) {
   /* P1: car stays in the middle of the black tape:
    *    - Check for black tape (photoresistor), then check for obstacle (distance sensor), repeat
    *    - Black = certain value from photoresistor reading, check for this continuously
@@ -56,17 +52,18 @@ void loop() {
    * P3: car navigates through walls and looks for red tape:
    *    - use distance sensors/flex sensor? to navigate car through the wall portion.
    *    - keep checking for red tape at end of distance sensor loop portion 
-   *    - once red tape detected, car stops. 
+   *    - once red tape detected, car stops (turn off 
    */   
    // when switch on, car will move forwards
    digitalWrite(motorL1out, HIGH);
    digitalWrite(motorR1out, HIGH); 
    
-  } else {
+  
+ //else {
     digitalWrite(motorL1out, LOW);
     digitalWrite(motorL2out, LOW);
     digitalWrite(motorR1out, LOW);
     digitalWrite(motorR2out, LOW);
-  }
+ // }
 
 }
