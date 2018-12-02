@@ -34,6 +34,14 @@ void setup() {
   pinMode(motorR1out, OUTPUT);           // right motor lead 1 = output
   pinMode(motorR2out, OUTPUT);           // right motor lead 2 = output
 
+  pinMode(p1, INPUT);
+  pinMode(p2, INPUT); 
+  pinMode(p3, INPUT); 
+  pinMode(d1, INPUT); 
+  pinMode(d2, INPUT); 
+  pinMode(d3, INPUT); 
+
+
   // insert more pin initializations as needed
 
 }
@@ -57,6 +65,8 @@ void loop() {
    // when switch on, car will move forwards
    digitalWrite(motorL1out, HIGH);
    digitalWrite(motorR1out, HIGH); 
+   digitalWrite(motorL2out, LOW);
+   digitalWrite(motorR2out, LOW); 
    
   
  /*else {
