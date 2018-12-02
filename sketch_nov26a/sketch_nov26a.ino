@@ -8,13 +8,16 @@ int photo3 = 0;
 int led1 = 9;
 int led2 = 10;
 int led3 = 11;
-int off = 40;
+int off = 50;
 float photo1avg = 0;
 float photo2avg = 0;
 float photo3avg = 0;
-float off2 = 20;
 float center = 0;
-
+float centerold = 0;
+float PID = 0;
+int P = 1;
+int I = -1;
+int D = -.1;
 void setup() {
   // declare the ledPin as an OUTPUT:
   pinMode(led1, OUTPUT);
@@ -64,11 +67,17 @@ void loop() {
   analogWrite(led2, photo2avg);
   analogWrite(led3, photo3avg);
 
+  centerold = center;
+
   center = (photo1avg * (-1))/(photo1avg + photo2avg + photo3avg) + (photo3avg)/(photo1avg + photo2avg + photo3avg);
 
   
-  Serial.println(center);
+  Serial.println(PID);
   Serial.print(" ");
+
+  delay(4);
+
+  PID = P*center + I*(center+centerold) + D*(center-centerold);
  
 
   
