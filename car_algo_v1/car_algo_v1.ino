@@ -57,6 +57,8 @@ void loop() {
    // when switch on, car will move forwards
    digitalWrite(motorL1out, HIGH);
    digitalWrite(motorR1out, HIGH); 
+   digitalWrite(motorL2out, LOW);
+   digitalWrite(motorR2out, LOW); 
    
   
  /*else {
