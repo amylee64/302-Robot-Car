@@ -1,0 +1,30 @@
+int sensorPin1 = A1; // select the input pin for the potentiometer
+int sensorPin2 = A2;
+int sensorPin0 = A0;    
+int ledPin = 13;      // select the pin for the LED
+int distanceValueLeft = 0;  // variable to store the value coming from the sensor
+int distanceValueRight = 0;
+int value = 10; //random int needs to be tested/ calulated
+int rightMotor;
+int leftMotor;
+
+void setup() {
+  // declare the ledPin as an OUTPUT:
+  pinMode(ledPin, OUTPUT);
+  // begin the serial monitor @ 9600 baud
+  Serial.begin(9600);
+}
+ 
+void loop() {
+  // read the value from the sensor:
+  distanceValueLeft = analogRead(sensorPin1);
+  distanceValueRight = analogRead(sensorPin2);
+  delay(20);
+  if(distanceValueLeft < value)
+      rightMotor -= 20;
+  else if(distanceValueRight < value)
+      leftMotor -= 20;
+  else
+      rightMotor = 200; //whatever output we choose to have it as
+      leftMotor = 200;
+}
