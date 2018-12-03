@@ -1,3 +1,8 @@
+// Pin Configurations *** CHANGE IF NEEDED ***
+const int motorL1out = 2;           // pin 11 = left motor (lead 1)
+const int motorL2out = 3;           // pin 10 = left motor (lead 2)
+const int motorR1out = 4;            // pin 9 = right motor (lead 1)
+const int motorR2out = 5;            // pin 8 = right motor (lead 2)
 
 int photoresist1 = A0;
 int photoresist2 = A1;
