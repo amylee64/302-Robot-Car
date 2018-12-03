@@ -85,11 +85,11 @@ void loop() {
 
   //turning algo without PID
   if(center > posThresh){
-         analogWrite(motorL1out, 25);
+         analogWrite(motorL1out, 5);
          analogWrite(motorR1out, 50); 
   } else if (center < negThresh){
          analogWrite(motorL1out, 50);
-         analogWrite(motorR1out, 25); 
+         analogWrite(motorR1out, 5); 
   } else {
          analogWrite(motorL1out, 50);
          analogWrite(motorR1out, 50); 
