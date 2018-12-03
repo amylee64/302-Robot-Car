@@ -72,12 +72,25 @@ void loop() {
   center = (photo1avg * (-1))/(photo1avg + photo2avg + photo3avg) + (photo3avg)/(photo1avg + photo2avg + photo3avg);
 
   
-  Serial.println(PID);
+  Serial.println(center);
   Serial.print(" ");
 
   delay(4);
 
   PID = P*center + I*(center+centerold) + D*(center-centerold);
+
+  //turning algo
+
+  //Y = radius - center;
+
+  //radius = (sqrt(2*(velocity*runtime)^2+Y^2)-Y)/2
+
+  //leftvel = 
+  
+
+  
+
+  
  
 
   
