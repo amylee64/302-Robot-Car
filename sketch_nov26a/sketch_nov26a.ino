@@ -75,9 +75,10 @@ void loop() {
 
   center = (photo1avg * (-1))/(photo1avg + photo2avg + photo3avg) + (photo3avg)/(photo1avg + photo2avg + photo3avg);
 
-  
-  Serial.println(center);
-  Serial.print(" ");
+  if(center <= 1 || center >= -1){
+       Serial.println(center);
+       Serial.print(" ");
+  }
 
   delay(4);
 
@@ -100,9 +101,7 @@ void loop() {
      analogRead(photoresist2) > redValLow && analogRead(photoresist2) < redValHigh &&
      analogRead(photoresist3) > redValLow && analogRead(photoresist3) < redValHigh){ 
          analogWrite(motorL1out, 0);
-         analogWrite(motorR1out, 0);
-         analogWrite(motorL2out, 0);
-         analogWrite(motorR2out, 0);
+         analogWrite(motorR1out, 0); 
   }
   //Y = radius - center;
 
