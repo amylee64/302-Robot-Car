@@ -18,6 +18,9 @@ float PID = 0;
 int P = 1;
 int I = -1;
 int D = -.1;
+int posThresh = 0.2;
+int negThresh = -0.2;
+
 void setup() {
   // declare the ledPin as an OUTPUT:
   pinMode(led1, OUTPUT);
@@ -79,8 +82,17 @@ void loop() {
 
   PID = P*center + I*(center+centerold) + D*(center-centerold);
 
-  //turning algo
-
+  //turning algo without PID
+  if(center > posThresh){
+         analogWrite(motorL1out, 25);
+         analogWrite(motorR1out, 50); 
+  } else if (center < negThresh){
+         analogWrite(motorL1out, 50);
+         analogWrite(motorR1out, 25); 
+  } else {
+         analogWrite(motorL1out, 50);
+         analogWrite(motorR1out, 50); 
+  }
   //Y = radius - center;
 
   //radius = (sqrt(2*(velocity*runtime)^2+Y^2)-Y)/2
