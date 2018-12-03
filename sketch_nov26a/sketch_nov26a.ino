@@ -20,7 +20,8 @@ int I = -1;
 int D = -.1;
 int posThresh = 0.2;
 int negThresh = -0.2;
-int redVal = 540;
+int redValLow = 435;
+int redValHigh = 455;
 void setup() {
   // declare the ledPin as an OUTPUT:
   pinMode(led1, OUTPUT);
@@ -95,7 +96,9 @@ void loop() {
   }
 
   //stopping at red tape
-  if(analogRead(photoresist2) > redVal){ 
+  if(analogRead(photoresist1) > redValLow && analogRead(photoresist1) < redValHigh &&
+     analogRead(photoresist2) > redValLow && analogRead(photoresist2) < redValHigh &&
+     analogRead(photoresist3) > redValLow && analogRead(photoresist3) < redValHigh){ 
          analogWrite(motorL1out, 0);
          analogWrite(motorR1out, 0); 
   }
