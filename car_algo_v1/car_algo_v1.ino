@@ -63,10 +63,10 @@ void loop() {
    *    - once red tape detected, car stops (turn off 
    */   
    // when switch on, car will move forwards
-   digitalWrite(motorL1out, HIGH);
-   digitalWrite(motorR1out, HIGH); 
-   digitalWrite(motorL2out, LOW);
-   digitalWrite(motorR2out, LOW); 
+   analogWrite(motorL1out, 50);
+   analogWrite(motorR1out, 50); 
+   analogWrite(motorL2out, 0);
+   analogWrite(motorR2out, 0); 
    
   
  /*else {
