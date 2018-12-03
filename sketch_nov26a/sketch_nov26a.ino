@@ -1,3 +1,8 @@
+// Pin Configurations *** CHANGE IF NEEDED ***
+const int motorL1out = 2;           // pin 11 = left motor (lead 1)
+const int motorL2out = 3;           // pin 10 = left motor (lead 2)
+const int motorR1out = 4;            // pin 9 = right motor (lead 1)
+const int motorR2out = 5;            // pin 8 = right motor (lead 2)
 
 int photoresist1 = A0;
 int photoresist2 = A1;
@@ -20,6 +25,7 @@ float PID = 0;
 int P = 1;
 int I = -1;
 int D = -.1;
+<<<<<<< HEAD
 int vel = 100;
 int radius = 100;
 float w = 0;
@@ -30,6 +36,12 @@ float Y = 0;
 //int posThresh = 0.2;
 //int negThresh = -0.2;
 
+=======
+int posThresh = 0.2;
+int negThresh = -0.2;
+int redValLow = 435;
+int redValHigh = 455;
+>>>>>>> 837b44b95990e3a5b08e002ffba97e8029b63809
 void setup() {
   // declare the ledPin as an OUTPUT:
   pinMode(led1, OUTPUT);
@@ -83,6 +95,7 @@ void loop() {
 
   center = (photo1avg * (-1))/(photo1avg + photo2avg + photo3avg) + (photo3avg)/(photo1avg + photo2avg + photo3avg);
 
+<<<<<<< HEAD
   centeravg = (centerold * 7) + center;
   
   Serial.println(center);
@@ -95,6 +108,37 @@ void loop() {
   //Y = radius - centeravg;
 
   //radius = (sqrt(2*(velocity * runtime)^2 + Y^2)-Y)/2;
+=======
+  if(center <= 1 || center >= -1){
+       Serial.println(center);
+       Serial.print(" ");
+  }
+
+  delay(4);
+
+  PID = P*center + I*(center+centerold) + D*(center-centerold);
+
+  //turning algo without PID
+  if(center > posThresh){
+         analogWrite(motorL1out, 5);
+         analogWrite(motorR1out, 50); 
+  } else if (center < negThresh){
+         analogWrite(motorL1out, 50);
+         analogWrite(motorR1out, 5); 
+  } else {
+         analogWrite(motorL1out, 50);
+         analogWrite(motorR1out, 50); 
+  }
+
+  //stopping at red tape
+  if(analogRead(photoresist1) > redValLow && analogRead(photoresist1) < redValHigh &&
+     analogRead(photoresist2) > redValLow && analogRead(photoresist2) < redValHigh &&
+     analogRead(photoresist3) > redValLow && analogRead(photoresist3) < redValHigh){ 
+         analogWrite(motorL1out, 0);
+         analogWrite(motorR1out, 0); 
+  }
+  //Y = radius - center;
+>>>>>>> 837b44b95990e3a5b08e002ffba97e8029b63809
 
   // v^2/r= (w*r)^2/r, w*r=v
 

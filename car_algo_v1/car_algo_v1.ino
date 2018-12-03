@@ -52,11 +52,25 @@ void loop() {
    *    - Black = certain value from photoresistor reading, check for this continuously
    *    - when car starts to deviate from path (or if path changes, readjust motor configurations to keep the car on tape
    *    - once obstacle detected, break from checking the black tape (no longer needed)
-   *    
+   */
+
+
+
+
+
+
+  /*
    * P2: car navigates around the obstacle:
    *    - find minimum distance car should be from the obstacle (distance sensor)
    *    - go around the thing 
-   *    
+   */
+
+
+
+
+
+
+  /*
    * P3: car navigates through walls and looks for red tape:
    *    - use distance sensors/flex sensor? to navigate car through the wall portion.
    *    - keep checking for red tape at end of distance sensor loop portion 
