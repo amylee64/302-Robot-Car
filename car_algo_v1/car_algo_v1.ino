@@ -15,6 +15,16 @@ const int d3 = A5;
 int photoR1 = 0;                  // initialize photoresistor values to 0
 int photoR2 = 0;                  // use analogRead in main code
 int photoR3 = 0;
+int photoR1avg = 0;
+int photoR2avg = 0;
+int photoR3avg = 0;
+
+int photoR1white = 0;
+int photoR2white = 0;
+int photoR3white = 0;
+
+float center = 0;
+float centeravg = 0;
 
 int distSen1 = 0;                 // initialize distance sensor values to 0
 int distSen2 = 0;                 // use analogRead in main code        
@@ -40,6 +50,12 @@ void setup() {
   pinMode(d1, INPUT); 
   pinMode(d2, INPUT); 
   pinMode(d3, INPUT); 
+  Serial.begin(9600);
+
+  
+  photoR1white = analogRead(photoresist1);
+  photoR2white = analogRead(photoresist2);
+  photoR3white = analogRead(photoresist3);
 
 
   // insert more pin initializations as needed
@@ -81,6 +97,49 @@ void loop() {
    analogWrite(motorR1out, 50); 
    analogWrite(motorL2out, 0);
    analogWrite(motorR2out, 0); 
+
+   /*We're gonna pull photoresistor values! 
+     this bit makes the maps the photoresist values to ~0 if it's on white, and like ~200 if it's on black */
+
+     if (analogRead(photoresist1) < photoR1white)
+        photoR1 = (-1) * analogRead(photoresist1) + photoR1white;
+
+    else if (analogRead(photoresist1) > photoR1white)
+        photoR1 = 0;
+  
+    if (analogRead(photoresist2) < photoR2white)
+        photoR2 = (-1) * analogRead(photoresist2) + photoR2white;
+
+    else if (analogRead(photoresist2) > photoR2white)
+        photoR2 = 0;
+        
+    if (analogRead(photoresist3) < photoR3white)
+        photoR3 = (-1) * analogRead(photoresist3) + photoR3white;
+
+    else if (analogRead(photoresist3) > photoR3white)
+        photoR3 = 0;
+
+        photoR1 = photoR1 * 10;
+        photoR2 = photoR2 * 10;
+        photoR3 = photoR3 * 10;
+
+   /*this smooths out the values over time*/
+  
+  photoR1avg = (photoR1 + 3 * photoR1avg)/4;
+  photoR2avg = (photoR2 + 3 * photoR2avg)/4;
+  photoR3avg = (photoR3 + 3 * photoR3avg)/4;
+
+  /*we will approximate the center of the tape*/
+
+  center = (photoR1avg * (-1))/(photoR1avg + photoR2avg + photoR3avg) + (photoR3avg)/(photoR1avg + photoR2avg + photoR3avg);
+
+  /*then smooth that value out too*/
+
+  centeravg = (7*centeravg + center)/8;
+
+  Serial.println(centeravg);
+  Serial.print(" ");
+
    
   
  /*else {
