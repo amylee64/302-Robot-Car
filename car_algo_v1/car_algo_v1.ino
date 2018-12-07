@@ -129,6 +129,23 @@ void loop() {
   photoR2avg = (photoR2 + 3 * photoR2avg)/4;
   photoR3avg = (photoR3 + 3 * photoR3avg)/4;
 
+  if (photoR1avg > 0)
+        photoR1avg = photoR1avg;
+
+    else if (photoR1avg < 0)
+        photoR1avg = 0;
+
+  if (photoR2avg > 0)
+        photoR2avg = photoR2avg;
+
+    else if (photoR2avg < 0)
+        photoR2avg = 0;
+
+  if (photoR3avg > 0)
+        photoR3avg = photoR3avg;
+
+    else if (photoR3avg < 0)
+        photoR3avg = 0; 
   /*we will approximate the center of the tape*/
 
   center = (photoR1avg * (-1))/(photoR1avg + photoR2avg + photoR3avg) + (photoR3avg)/(photoR1avg + photoR2avg + photoR3avg);
