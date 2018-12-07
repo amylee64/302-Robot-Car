@@ -137,6 +137,26 @@ void loop() {
 
   centeravg = (7*centeravg + center)/8;
 
+  if(photoR1avg > photoR2avg && photoR1avg > photoR3avg){
+      center = -1;
+  } else if (photoR2avg > photoR1avg && photoR2avg > photoR3avg){
+      center = 0;
+  } else if (photoR3avg > photoR1avg && photoR3avg > photoR2avg){
+      center = 1;
+  }
+  
+  if(center > 0){
+      analogWrite(motorL1out, 5);
+      analogWrite(motorR1out, 50); 
+  } else if (center < 0){
+      analogWrite(motorL1out, 50);
+      analogWrite(motorR1out, 5); 
+  } else {
+      analogWrite(motorL1out, 50);
+      analogWrite(motorR1out, 50); 
+    }
+
+  }
   Serial.println(centeravg);
   Serial.print(" ");
 
