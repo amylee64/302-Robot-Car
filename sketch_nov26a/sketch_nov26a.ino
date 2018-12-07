@@ -41,7 +41,7 @@ int posThresh = 0.2;
 int negThresh = -0.2;
 int redValLow = 435;
 int redValHigh = 455;
->>>>>>> 837b44b95990e3a5b08e002ffba97e8029b63809
+
 void setup() {
   // declare the ledPin as an OUTPUT:
   pinMode(led1, OUTPUT);
@@ -94,8 +94,7 @@ void loop() {
   //centerold = center;
 
   center = (photo1avg * (-1))/(photo1avg + photo2avg + photo3avg) + (photo3avg)/(photo1avg + photo2avg + photo3avg);
-
-<<<<<<< HEAD
+  
   centeravg = (centerold * 7) + center;
   
   Serial.println(center);
@@ -107,8 +106,7 @@ void loop() {
   
   //Y = radius - centeravg;
 
-  //radius = (sqrt(2*(velocity * runtime)^2 + Y^2)-Y)/2;
-=======
+
   if(center <= 1 || center >= -1){
        Serial.println(center);
        Serial.print(" ");
@@ -138,7 +136,6 @@ void loop() {
          analogWrite(motorR1out, 0); 
   }
   //Y = radius - center;
->>>>>>> 837b44b95990e3a5b08e002ffba97e8029b63809
 
   // v^2/r= (w*r)^2/r, w*r=v
 
