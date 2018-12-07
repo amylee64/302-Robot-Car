@@ -57,46 +57,42 @@ void setup() {
   photoR2white = analogRead(photoresist2);
   photoR3white = analogRead(photoresist3);
 
+  analogWrite(motorL1out, 100);
+  analogWrite(motorL2out, 0);
+  analogWrite(motorR1out, 100);
+  analogWrite(motorR2out, 0); 
+
 
   // insert more pin initializations as needed
 
 }
 
 void loop() {
+
+
+  
+  
   /* P1: car stays in the middle of the black tape:
    *    - Check for black tape (photoresistor), then check for obstacle (distance sensor), repeat
    *    - Black = certain value from photoresistor reading, check for this continuously
    *    - when car starts to deviate from path (or if path changes, readjust motor configurations to keep the car on tape
    *    - once obstacle detected, break from checking the black tape (no longer needed)
-   */
-
-
-
-
-
-
-  /*
    * P2: car navigates around the obstacle:
    *    - find minimum distance car should be from the obstacle (distance sensor)
    *    - go around the thing 
-   */
-
-
-
-
-
-
-  /*
+   *
    * P3: car navigates through walls and looks for red tape:
    *    - use distance sensors/flex sensor? to navigate car through the wall portion.
    *    - keep checking for red tape at end of distance sensor loop portion 
    *    - once red tape detected, car stops (turn off 
    */   
    // when switch on, car will move forwards
-   analogWrite(motorL1out, 50);
-   analogWrite(motorR1out, 50); 
-   analogWrite(motorL2out, 0);
-   analogWrite(motorR2out, 0); 
+ 
+
+//      digitalWrite(motorL1out, HIGH);
+//      digitalWrite(motorL2out, LOW);
+//      digitalWrite(motorR1out, HIGH);
+//      digitalWrite(motorR2out, LOW); 
 
    /*We're gonna pull photoresistor values! 
      this bit makes the maps the photoresist values to ~0 if it's on white, and like ~200 if it's on black */
@@ -163,22 +159,47 @@ void loop() {
   }
   
   if(center > 0){
-      analogWrite(motorL1out, 5);
-      analogWrite(motorR1out, 50); 
+      digitalWrite(motorL1out, HIGH);
+      digitalWrite(motorL2out, LOW);
+      digitalWrite(motorR1out, LOW);
+      digitalWrite(motorR2out, HIGH); 
   } else if (center < 0){
-      analogWrite(motorL1out, 50);
-      analogWrite(motorR1out, 5); 
+      digitalWrite(motorL1out, LOW);
+      digitalWrite(motorL2out, HIGH);
+      digitalWrite(motorR1out, HIGH);
+      digitalWrite(motorR2out, LOW);
   } else {
-      analogWrite(motorL1out, 50);
-      analogWrite(motorR1out, 50); 
-    }
+      digitalWrite(motorL1out, HIGH);
+      digitalWrite(motorL2out, LOW);
+      digitalWrite(motorR1out, HIGH);
+      digitalWrite(motorR2out, LOW); 
+   }
+//
+//
+//   
 
-  }
-  Serial.println(centeravg);
-  Serial.print(" ");
+//    if(center > 0){
+//      digitalWrite(motorL1out, LOW);
+//      analogWrite(motorR1out, 100); 
+//      analogWrite(motorL2out, 100);
+//      digitalWrite(motorR2out, LOW); 
+//  } else if (center < 0){
+//      analogWrite(motorL1out, 100);
+//      digitalWrite(motorR1out, LOW); 
+//      digitalWrite(motorL2out, LOW);
+//      analogWrite(motorR2out, 100); 
+//  } else {
+//      analogWrite(motorL1out, 100);
+//      analogWrite(motorR1out, 100); 
+//      digitalWrite(motorL2out, LOW);
+//      digitalWrite(motorR2out, LOW); 
+//    }
+
 
    
-  
+  Serial.println(center);
+  Serial.print(" ");
+
  /*else {
     digitalWrite(motorL1out, LOW);
     digitalWrite(motorL2out, LOW);
