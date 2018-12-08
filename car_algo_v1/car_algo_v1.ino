@@ -107,7 +107,7 @@ void loop() {
         photoR2 = (-1) * analogRead(photoresist2) + photoR2white;
 
     else if (analogRead(photoresist2) > photoR2white)
-        photoR2 = 0;
+        photoR2 = 20;
         
     if (analogRead(photoresist3) < photoR3white)
         photoR3 = (-1) * analogRead(photoresist3) + photoR3white;
