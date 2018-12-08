@@ -144,11 +144,11 @@ void loop() {
         photoR3avg = 0; 
   /*we will approximate the center of the tape*/
 
-  center = (photoR1avg * (-1))/(photoR1avg + photoR2avg + photoR3avg) + (photoR3avg)/(photoR1avg + photoR2avg + photoR3avg);
+/*  center = (photoR1avg * (-1))/(photoR1avg + photoR2avg + photoR3avg) + (photoR3avg)/(photoR1avg + photoR2avg + photoR3avg);
 
   /*then smooth that value out too*/
 
-  centeravg = (7*centeravg + center)/8;
+  /*centeravg = (7*centeravg + center)/8;*/
 
   if(photoR1avg > photoR2avg && photoR1avg > photoR3avg){
       center = -1;
