@@ -62,6 +62,8 @@ void setup() {
   analogWrite(motorR1out, 100);
   analogWrite(motorR2out, 0); 
 
+  delay(3000);
+
 
   // insert more pin initializations as needed
 
