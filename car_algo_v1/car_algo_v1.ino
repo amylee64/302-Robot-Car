@@ -11,6 +11,11 @@ const int d1 = A3;
 const int d2 = A4;
 const int d3 = A5;
 
+const int ledred = 11;            //we can like, uhh, change the led colors
+const int ledblue = 10;
+const int ledgreen = 9;
+
+
 // Variable Declarations
 int photoR1 = 0;                  // initialize photoresistor values to 0
 int photoR2 = 0;                  // use analogRead in main code
@@ -35,6 +40,12 @@ int leftMotor2 = 0;                // each motor has 2 leads (4 loads)
 int rightMotor1 = 0;               // write values to these variables to control the car motors
 int rightMotor2 = 0;
 
+
+// red tape range for R1 is 495 +-5
+// red tape range for R2 is 440 +-5
+// red tape range for R3
+
+
 // add more variables as needed
 // need to figure out supplying power to car through Arduino/battery/whatever
 
@@ -44,25 +55,31 @@ void setup() {
   pinMode(motorR1out, OUTPUT);           // right motor lead 1 = output
   pinMode(motorR2out, OUTPUT);           // right motor lead 2 = output
 
-  pinMode(photoresist1, INPUT);
+  pinMode(photoresist1, INPUT);          // pin initializations for photo resistor sensors
   pinMode(photoresist2, INPUT); 
   pinMode(photoresist3, INPUT); 
   pinMode(d1, INPUT); 
-  pinMode(d2, INPUT); 
+  pinMode(d2, INPUT);                    // pin initializations for distance sensors
   pinMode(d3, INPUT); 
   Serial.begin(9600);
 
-  
-  photoR1white = analogRead(photoresist1);
-  photoR2white = analogRead(photoresist2);
-  photoR3white = analogRead(photoresist3);
+  pinMode(ledred, OUTPUT);          // pin initializations for RGB led
+  pinMode(ledblue, OUTPUT); 
+  pinMode(ledgreen, OUTPUT);
+
+
+
+  delay(3000);       // 3 second delay before car starts moving (easier to manage bot physically)
 
   analogWrite(motorL1out, 100);
   analogWrite(motorL2out, 0);
   analogWrite(motorR1out, 100);
   analogWrite(motorR2out, 0); 
 
-  delay(3000);
+  photoR1white = analogRead(photoresist1);
+  photoR2white = analogRead(photoresist2);
+  photoR3white = analogRead(photoresist3);
+                         // 3 second delay before car starts moving (easier to manage bot physically)
 
 
   // insert more pin initializations as needed
@@ -100,7 +117,7 @@ void loop() {
      this bit makes the maps the photoresist values to ~0 if it's on white, and like ~200 if it's on black */
 
      if (analogRead(photoresist1) < photoR1white)
-        photoR1 = (-1) * analogRead(photoresist1) + photoR1white;
+        photoR1 = (-1) * analogRead(photoresist1) + photoR1white + 5;
 
     else if (analogRead(photoresist1) > photoR1white)
         photoR1 = 0;
@@ -112,7 +129,7 @@ void loop() {
         photoR2 = 20;
         
     if (analogRead(photoresist3) < photoR3white)
-        photoR3 = (-1) * analogRead(photoresist3) + photoR3white;
+        photoR3 = (-1) * analogRead(photoresist3) + photoR3white + 5;
 
     else if (analogRead(photoresist3) > photoR3white)
         photoR3 = 0;
@@ -123,9 +140,9 @@ void loop() {
 
    /*this smooths out the values over time*/
   
-  photoR1avg = (photoR1 + 3 * photoR1avg)/4;
-  photoR2avg = (photoR2 + 3 * photoR2avg)/4;
-  photoR3avg = (photoR3 + 3 * photoR3avg)/4;
+  photoR1avg = (photoR1 + photoR1avg)/2;
+  photoR2avg = (photoR2 + photoR2avg)/2;
+  photoR3avg = (photoR3 + photoR3avg)/2;
 
   if (photoR1avg > 0)
         photoR1avg = photoR1avg;
@@ -165,16 +182,29 @@ void loop() {
       digitalWrite(motorL2out, LOW);
       digitalWrite(motorR1out, LOW);
       digitalWrite(motorR2out, HIGH); 
+
+      analogWrite(ledred, 0);
+      analogWrite(ledblue, 0);
+      analogWrite(ledgreen, 0);
   } else if (center < 0){
       digitalWrite(motorL1out, LOW);
       digitalWrite(motorL2out, HIGH);
       digitalWrite(motorR1out, HIGH);
       digitalWrite(motorR2out, LOW);
+
+      analogWrite(ledred, 0);
+      analogWrite(ledblue, 255);
+      analogWrite(ledgreen, 0);
   } else {
       digitalWrite(motorL1out, HIGH);
       digitalWrite(motorL2out, LOW);
       digitalWrite(motorR1out, HIGH);
       digitalWrite(motorR2out, LOW); 
+
+      
+      analogWrite(ledred, 0);
+      analogWrite(ledblue, 0);
+      analogWrite(ledgreen, 255);
    }
 //
 //
@@ -199,7 +229,7 @@ void loop() {
 
 
    
-  Serial.println(center);
+  Serial.println(analogRead(photoresist3));
   Serial.print(" ");
 
  /*else {
