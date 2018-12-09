@@ -43,7 +43,7 @@ int rightMotor2 = 0;
 
 // red tape range for R1 is 495 +-5
 // red tape range for R2 is 440 +-5
-// red tape range for R3
+// red tape range for R3 is 448 +- 10
 
 
 // add more variables as needed
@@ -169,11 +169,11 @@ void loop() {
 
   /*centeravg = (7*centeravg + center)/8;*/
 
-  if(photoR1avg > photoR2avg && photoR1avg > photoR3avg){
+  if(photoR1avg > photoR2avg && photoR1avg > photoR3avg || ( photoR1avg && photoR2avg > 500)){
       center = -1;
   } else if (photoR2avg > photoR1avg && photoR2avg > photoR3avg){
       center = 0;
-  } else if (photoR3avg > photoR1avg && photoR3avg > photoR2avg){
+  } else if (photoR3avg > photoR1avg && photoR3avg > photoR2avg|| ( photoR3avg && photoR2avg > 500)){
       center = 1;
   }
   
