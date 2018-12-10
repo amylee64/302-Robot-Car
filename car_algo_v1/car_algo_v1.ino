@@ -63,9 +63,7 @@ void setup() {
   pinMode(photoresist1, INPUT);          // pin initializations for photo resistor sensors
   pinMode(photoresist2, INPUT); 
   pinMode(photoresist3, INPUT); 
-  pinMode(d1, INPUT); 
-  pinMode(d2, INPUT);                    // pin initializations for distance sensors
-  pinMode(d3, INPUT); 
+
   Serial.begin(9600);
 
   pinMode(ledred, OUTPUT);          // pin initializations for RGB led
