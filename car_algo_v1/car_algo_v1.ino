@@ -223,6 +223,9 @@ else if (analogRead(dFront) > dThresh && flag){
    /* Serial.print("second portion");
     if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
   */
+      analogWrite(ledred, 255);
+      analogWrite(ledblue, 0);
+      analogWrite(ledgreen, 0);
       if(analogRead(dFront) > dThresh){
         digitalWrite(motorL1out, LOW);
         digitalWrite(motorL2out, LOW);
