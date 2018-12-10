@@ -246,14 +246,17 @@ if(analogRead(dFront) < dThresh){
 
 
    
-  Serial.println(analogRead(photoresist1));
+  Serial.println(analogRead(dFront));
   Serial.print(" ");
 }
 else{
       digitalWrite(motorL1out, LOW);
       digitalWrite(motorL2out, LOW);
       digitalWrite(motorR1out, LOW);
-      digitalWrite(motorR2out, LOW); 
+      digitalWrite(motorR2out, LOW);
+
+      Serial.println(analogRead(dFront));
+      Serial.print(" ");
 }
  /*else {
     digitalWrite(motorL1out, LOW);
