@@ -211,26 +211,7 @@ if(analogRead(dFront) < dThresh && flag){
       analogWrite(ledblue, 0);
       analogWrite(ledgreen, 255);
    }
-//
-//
-//   
 
-//    if(center > 0){
-//      digitalWrite(motorL1out, LOW);
-//      analogWrite(motorR1out, 100); 
-//      analogWrite(motorL2out, 100);
-//      digitalWrite(motorR2out, LOW); 
-//  } else if (center < 0){
-//      analogWrite(motorL1out, 100);
-//      digitalWrite(motorR1out, LOW); 
-//      digitalWrite(motorL2out, LOW);
-//      analogWrite(motorR2out, 100); 
-//  } else {
-//      analogWrite(motorL1out, 100);
-//      analogWrite(motorR1out, 100); 
-//      digitalWrite(motorL2out, LOW);
-//      digitalWrite(motorR2out, LOW); 
-//    }
 
 
 // red tape range for R1 is 473 +-10
@@ -242,31 +223,30 @@ if(analogRead(dFront) < dThresh && flag){
   Serial.println(analogRead(dFront));
   Serial.print(" ");
 }
-else if(flag && analogRead(dFront) > dThresh) {
-      digitalWrite(motorL1out, LOW);
-      digitalWrite(motorL2out, LOW);
-      digitalWrite(motorR1out, LOW);
-      digitalWrite(motorR2out, LOW);
-
-      flag = false;
-      Serial.println(analogRead(dFront));
-      Serial.print(" ");
+//else if(flag && analogRead(dFront) > dThresh) {
+//      digitalWrite(motorL1out, LOW);
+//      digitalWrite(motorL2out, LOW);
+//      digitalWrite(motorR1out, LOW);
+//      digitalWrite(motorR2out, LOW);
+//
+//      flag = false;
+//      Serial.println(analogRead(dFront));
+//      Serial.print(" ");
+//}
+//else{
+//    if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
+//
+//      digitalWrite(motorL1out, LOW);
+//      digitalWrite(motorL2out, LOW);
+//      digitalWrite(motorR1out, LOW);
+//      digitalWrite(motorR2out, LOW); 
+//    
+//  }
+//  else{
+//      digitalWrite(motorL1out, HIGH);
+//      digitalWrite(motorL2out, LOW);
+//      digitalWrite(motorR1out, HIGH);
+//      digitalWrite(motorR2out, LOW);
+//  }
 }
-else{
-    if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
 
-      digitalWrite(motorL1out, LOW);
-      digitalWrite(motorL2out, LOW);
-      digitalWrite(motorR1out, LOW);
-      digitalWrite(motorR2out, LOW); 
-    
-  }
-  else{
-      digitalWrite(motorL1out, HIGH);
-      digitalWrite(motorL2out, LOW);
-      digitalWrite(motorR1out, HIGH);
-      digitalWrite(motorR2out, LOW);
-  }
-}
-
-}
