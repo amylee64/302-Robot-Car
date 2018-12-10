@@ -17,6 +17,8 @@ const int ledgreen = 9;
 
 
 // Variable Declarations
+bool flag = true;
+
 int photoR1 = 0;                  // initialize photoresistor values to 0
 int photoR2 = 0;                  // use analogRead in main code
 int photoR3 = 0;
@@ -24,7 +26,7 @@ int photoR1avg = 0;
 int photoR2avg = 0;
 int photoR3avg = 0;
 
-int dThresh = 400;
+int disThresh = 400;
 
 int photoR1white = 0;
 int photoR2white = 0;
@@ -61,27 +63,27 @@ void setup() {
   pinMode(photoresist1, INPUT);          // pin initializations for photo resistor sensors
   pinMode(photoresist2, INPUT); 
   pinMode(photoresist3, INPUT); 
-  pinMode(dFront, INPUT); 
-  pinMode(dLeft, INPUT);                    // pin initializations for distance sensors
-  pinMode(dRight, INPUT); 
+  pinMode(d1, INPUT); 
+  pinMode(d2, INPUT);                    // pin initializations for distance sensors
+  pinMode(d3, INPUT); 
   Serial.begin(9600);
 
   pinMode(ledred, OUTPUT);          // pin initializations for RGB led
   pinMode(ledblue, OUTPUT); 
   pinMode(ledgreen, OUTPUT);
 
-  delay(3000);
+
+
+  delay(3000);       // 3 second delay before car starts moving (easier to manage bot physically)
+
+  analogWrite(motorL1out, 100);
+  analogWrite(motorL2out, 0);
+  analogWrite(motorR1out, 100);
+  analogWrite(motorR2out, 0); 
 
   photoR1white = analogRead(photoresist1);
   photoR2white = analogRead(photoresist2);
   photoR3white = analogRead(photoresist3);
-
-  digitalWrite(motorL1out, HIGH);
-  digitalWrite(motorL2out, LOW);
-  digitalWrite(motorR1out, HIGH);
-  digitalWrite(motorR2out, LOW); 
-
-  delay(1000);  
                          // 3 second delay before car starts moving (easier to manage bot physically)
 
 
@@ -118,7 +120,7 @@ void loop() {
 
    /*We're gonna pull photoresistor values! 
      this bit makes the maps the photoresist values to ~0 if it's on white, and like ~200 if it's on black */
-if(analogRead(dFront) < dThresh){
+if(analogRead(dFront) < dThresh && flag){
      if (analogRead(photoresist1) < photoR1white)
         photoR1 = (-1) * analogRead(photoresist1) + photoR1white + 5;
 
@@ -235,7 +237,23 @@ if(analogRead(dFront) < dThresh){
 // red tape range for R2 is 525 +-10
 // red tape range for R3 is 442 +- 10
 
-  if ((493 > analogRead(photoresist1) > 453) && (545 > analogRead(photoresist2) > 505) && (462 > analogRead(photoresist1) > 422)){
+
+   
+  Serial.println(analogRead(dFront));
+  Serial.print(" ");
+}
+else if(flag && analogRead(dFront) > dThresh) {
+      digitalWrite(motorL1out, LOW);
+      digitalWrite(motorL2out, LOW);
+      digitalWrite(motorR1out, LOW);
+      digitalWrite(motorR2out, LOW);
+
+      flag = false;
+      Serial.println(analogRead(dFront));
+      Serial.print(" ");
+}
+else{
+    if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
 
       digitalWrite(motorL1out, LOW);
       digitalWrite(motorL2out, LOW);
@@ -243,20 +261,12 @@ if(analogRead(dFront) < dThresh){
       digitalWrite(motorR2out, LOW); 
     
   }
-
-
-   
-  Serial.println(analogRead(dFront));
-  Serial.print(" ");
-}
-else{
-      digitalWrite(motorL1out, LOW);
-      digitalWrite(motorL2out, LOW);
-      digitalWrite(motorR1out, LOW);
-      digitalWrite(motorR2out, LOW);
-
-      Serial.println(analogRead(dFront));
-      Serial.print(" ");
+  else{
+      digitalWrite(motorL1out, HIGH;
+      digitalWrite(motorL2out, HIGH);
+      digitalWrite(motorR1out, HIGH);
+      digitalWrite(motorR2out, HIGH);
+  }
 }
 
 }
