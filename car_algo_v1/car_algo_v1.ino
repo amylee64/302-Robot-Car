@@ -251,7 +251,7 @@ else if(flag == true && analogRead(dFront) > dThresh) {
       Serial.println("found object");
 }
 else{
-    Serial.prinln("second portion");
+    Serial.println("second portion");
     if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
 
       digitalWrite(motorL1out, LOW);
