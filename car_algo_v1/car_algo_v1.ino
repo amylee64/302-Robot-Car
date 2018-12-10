@@ -73,17 +73,18 @@ void setup() {
   pinMode(ledgreen, OUTPUT);
 
 
-
-  delay(3000);       // 3 second delay before car starts moving (easier to manage bot physically)
-
-  analogWrite(motorL1out, 100);     // initial car motor values
-  analogWrite(motorL2out, 0);
-  analogWrite(motorR1out, 100);
-  analogWrite(motorR2out, 0); 
+  delay(1000);
 
   photoR1white = analogRead(photoresist1);
   photoR2white = analogRead(photoresist2);
   photoR3white = analogRead(photoresist3);
+  
+  delay(3000);       // 3 second delay before car starts moving (easier to manage bot physically)
+
+  digitalWrite(motorL1out, HIGH);     // initial car motor values
+  digitalWrite(motorL2out, LOW);
+  digitalWrite(motorR1out, HIGH);
+  digitalWrite(motorR2out, LOW); 
               
   // insert more pin initializations as needed
 
@@ -235,4 +236,4 @@ else{
       digitalWrite(motorR2out, LOW);
   }*/
 }
-
+}
