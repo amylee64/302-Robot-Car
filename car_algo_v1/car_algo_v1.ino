@@ -118,19 +118,19 @@ void loop() {
      this bit makes the maps the photoresist values to ~0 if it's on white, and like ~200 if it's on black */
 if(analogRead(dFront) < dThresh && flag){
      if (analogRead(photoresist1) < photoR1white)
-        photoR1 = (-1) * analogRead(photoresist1) + photoR1white + 5;
+        photoR1 = (-1) * analogRead(photoresist1) + photoR1white;
 
     else if (analogRead(photoresist1) > photoR1white)
         photoR1 = 0;
   
     if (analogRead(photoresist2) < photoR2white)
-        photoR2 = (-1) * analogRead(photoresist2) + photoR2white + 10;
+        photoR2 = (-1) * analogRead(photoresist2) + photoR2white;
 
     else if (analogRead(photoresist2) > photoR2white)
-        photoR2 = 20;
+        photoR2 = 5;
         
     if (analogRead(photoresist3) < photoR3white)
-        photoR3 = (-1) * analogRead(photoresist3) + photoR3white + 5;
+        photoR3 = (-1) * analogRead(photoresist3) + photoR3white;
 
     else if (analogRead(photoresist3) > photoR3white)
         photoR3 = 0;
