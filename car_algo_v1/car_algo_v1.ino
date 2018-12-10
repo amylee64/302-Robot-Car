@@ -217,7 +217,6 @@ if(photoR1avg > photoR2avg && photoR1avg > photoR3avg || ( photoR1avg && photoR2
 // red tape range for R1 is 473 +-10
 // red tape range for R2 is 525 +-10
 // red tape range for R3 is 442 +- 10
-  Serial.print("first portion");
 }
 else if (analogRead(dFront) > dThresh && flag){
    /* Serial.print("second portion");
@@ -244,4 +243,6 @@ else if (analogRead(dFront) > dThresh && flag){
         digitalWrite(motorR2out, LOW);
       }
   }
+  Serial.println(analogRead(dFront));
+  Serial.print(" ");
 }
