@@ -171,7 +171,7 @@ if(analogRead(dFront) < dThresh){
 
 
   // Calculation of photoresistor data needed for car to navigate black tape path
-  if(photoR1avg > photoR2avg && photoR1avg > photoR3avg || ( photoR1avg && photoR2avg > 8000)){
+if(photoR1avg > photoR2avg && photoR1avg > photoR3avg || ( photoR1avg && photoR2avg > 8000)){
       center = -1;
   } else if (photoR2avg > photoR1avg && photoR2avg > photoR3avg){
       center = 0;
@@ -188,7 +188,7 @@ if(analogRead(dFront) < dThresh){
 
       analogWrite(ledred, 0);
       analogWrite(ledblue, 0);
-      analogWrite(ledgreen, 0);
+      analogWrite(ledgreen, 255);
   } else if (center < 0){
       digitalWrite(motorL1out, LOW);
       digitalWrite(motorL2out, HIGH);
@@ -223,10 +223,10 @@ else{
    /* Serial.print("second portion");
     if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
   */
-      digitalWrite(motorL1out, LOW);
-      digitalWrite(motorL2out, LOW);
-      digitalWrite(motorR1out, LOW);
-      digitalWrite(motorR2out, LOW); 
+//      digitalWrite(motorL1out, LOW);
+//      digitalWrite(motorL2out, LOW);
+//      digitalWrite(motorR1out, LOW);
+//      digitalWrite(motorR2out, LOW); 
    /* 
   }
   else{
