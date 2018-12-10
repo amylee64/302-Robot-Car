@@ -3,10 +3,10 @@ const int motorL1out = 2;           // pin 11 = left motor (lead 1)
 const int motorL2out = 3;           // pin 10 = left motor (lead 2)
 const int motorR1out = 4;            // pin 9 = right motor (lead 1)
 const int motorR2out = 5;            // pin 8 = right motor (lead 2)
-const int IRsensor;          //**** please get input *****
-const int photoresist1 = A2;      // setting each photoresistor and distance sensor to its own 
+
+const int photoresist1 = A0;      // setting each photoresistor and distance sensor to its own 
 const int photoresist2 = A1;      // analog input pin on the Arduino 
-const int photoresist3 = A0;      // *** WE CAN CHANGE THIS IF NEEDED ***
+const int photoresist3 = A2;      // *** WE CAN CHANGE THIS IF NEEDED ***
 const int d1 = A3;
 const int d2 = A4;
 const int d3 = A5;
@@ -18,7 +18,6 @@ int photoR3 = 0;
 int photoR1avg = 0;
 int photoR2avg = 0;
 int photoR3avg = 0;
-
 
 int photoR1white = 0;
 int photoR2white = 0;
@@ -101,7 +100,7 @@ void loop() {
 
    /*We're gonna pull photoresistor values! 
      this bit makes the maps the photoresist values to ~0 if it's on white, and like ~200 if it's on black */
-  if(analogRead(IRsensor) = 0){
+
      if (analogRead(photoresist1) < photoR1white)
         photoR1 = (-1) * analogRead(photoresist1) + photoR1white;
 
@@ -123,63 +122,62 @@ void loop() {
         photoR1 = photoR1 * 10;
         photoR2 = photoR2 * 10;
         photoR3 = photoR3 * 10;
-  
+
    /*this smooths out the values over time*/
   
-     photoR1avg = (photoR1 + 3 * photoR1avg)/4;
-     photoR2avg = (photoR2 + 3 * photoR2avg)/4;
-     photoR3avg = (photoR3 + 3 * photoR3avg)/4;
+  photoR1avg = (photoR1 + 3 * photoR1avg)/4;
+  photoR2avg = (photoR2 + 3 * photoR2avg)/4;
+  photoR3avg = (photoR3 + 3 * photoR3avg)/4;
 
-     if (photoR1avg > 0)
+  if (photoR1avg > 0)
         photoR1avg = photoR1avg;
 
-      else if (photoR1avg < 0)
+    else if (photoR1avg < 0)
         photoR1avg = 0;
 
-      if (photoR2avg > 0)
+  if (photoR2avg > 0)
         photoR2avg = photoR2avg;
 
-      else if (photoR2avg < 0)
+    else if (photoR2avg < 0)
         photoR2avg = 0;
 
-      if (photoR3avg > 0)
+  if (photoR3avg > 0)
         photoR3avg = photoR3avg;
 
-      else if (photoR3avg < 0)
+    else if (photoR3avg < 0)
         photoR3avg = 0; 
-      /*we will approximate the center of the tape*/
+  /*we will approximate the center of the tape*/
 
-      center = (photoR1avg * (-1))/(photoR1avg + photoR2avg + photoR3avg) + (photoR3avg)/(photoR1avg + photoR2avg + photoR3avg);
+  center = (photoR1avg * (-1))/(photoR1avg + photoR2avg + photoR3avg) + (photoR3avg)/(photoR1avg + photoR2avg + photoR3avg);
 
-      /*then smooth that value out too*/
+  /*then smooth that value out too*/
 
-      centeravg = (7*centeravg + center)/8;
+  centeravg = (7*centeravg + center)/8;
 
-      if(photoR1avg > photoR2avg && photoR1avg > photoR3avg){
-         center = -1;
-      } else if (photoR2avg > photoR1avg && photoR2avg > photoR3avg){
-         center = 0;
-      } else if (photoR3avg > photoR1avg && photoR3avg > photoR2avg){
-         center = 1;
-      }
-  
-      if(center > 0){
-          analogWrite(motorL1out, 5);
-          analogWrite(motorR1out, 50); 
-      } else if (center < 0){
-          analogWrite(motorL1out, 50);
-          analogWrite(motorR1out, 5); 
-      } else {
-          analogWrite(motorL1out, 50);
-          analogWrite(motorR1out, 50); 
-      }
-      Serial.println(centeravg);
-      Serial.print(" ");
-    }
-else{
-    alalogWrite(motorL1out, 0);
-    alalogWrite(motorR1out,0);  
+  if(photoR1avg > photoR2avg && photoR1avg > photoR3avg){
+      center = -1;
+  } else if (photoR2avg > photoR1avg && photoR2avg > photoR3avg){
+      center = 0;
+  } else if (photoR3avg > photoR1avg && photoR3avg > photoR2avg){
+      center = 1;
   }
+  
+  if(center > 0){
+      analogWrite(motorL1out, 5);
+      analogWrite(motorR1out, 50); 
+  } else if (center < 0){
+      analogWrite(motorL1out, 50);
+      analogWrite(motorR1out, 5); 
+  } else {
+      analogWrite(motorL1out, 50);
+      analogWrite(motorR1out, 50); 
+    }
+
+  }
+  Serial.println(centeravg);
+  Serial.print(" ");
+
+   
   
  /*else {
     digitalWrite(motorL1out, LOW);
