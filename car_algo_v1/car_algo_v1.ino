@@ -7,9 +7,9 @@ const int motorR2out = 5;            // pin 8 = right motor (lead 2)
 const int photoresist1 = A2;      // setting each photoresistor and distance sensor to its own 
 const int photoresist2 = A1;      // analog input pin on the Arduino 
 const int photoresist3 = A0;      // *** WE CAN CHANGE THIS IF NEEDED ***
-const int d1 = A3;
-const int d2 = A4;
-const int d3 = A5;
+const int dFront = A6;            // distance sensor variables
+const int dLeft = A7;
+const int dRight = A5;
 
 const int ledred = 11;            //we can like, uhh, change the led colors
 const int ledblue = 10;
@@ -24,6 +24,8 @@ int photoR1avg = 0;
 int photoR2avg = 0;
 int photoR3avg = 0;
 
+int disThresh = 0;
+
 int photoR1white = 0;
 int photoR2white = 0;
 int photoR3white = 0;
@@ -34,6 +36,7 @@ float centeravg = 0;
 int distSen1 = 0;                 // initialize distance sensor values to 0
 int distSen2 = 0;                 // use analogRead in main code        
 int distSen3 = 0;
+
 
 int leftMotor1 = 0;                // initialize motor speed for left and right to 0
 int leftMotor2 = 0;                // each motor has 2 leads (4 loads) 
@@ -115,7 +118,7 @@ void loop() {
 
    /*We're gonna pull photoresistor values! 
      this bit makes the maps the photoresist values to ~0 if it's on white, and like ~200 if it's on black */
-
+if(analogRead(dFront) < dThresh){
      if (analogRead(photoresist1) < photoR1white)
         photoR1 = (-1) * analogRead(photoresist1) + photoR1white + 5;
 
@@ -243,9 +246,18 @@ void loop() {
 
 
    
-  Serial.println(analogRead(photoresist1));
+  Serial.println(analogRead(dFront));
   Serial.print(" ");
+}
+else{
+      digitalWrite(motorL1out, LOW);
+      digitalWrite(motorL2out, LOW);
+      digitalWrite(motorR1out, LOW);
+      digitalWrite(motorR2out, LOW);
 
+      Serial.println(analogRead(dFront));
+      Serial.print(" ");
+}
  /*else {
     digitalWrite(motorL1out, LOW);
     digitalWrite(motorL2out, LOW);
