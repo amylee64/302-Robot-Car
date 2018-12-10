@@ -126,7 +126,7 @@ if(analogRead(dFront) < dThresh){
         photoR1 = 0;
   
     if (analogRead(photoresist2) < photoR2white)
-        photoR2 = (-1) * analogRead(photoresist2) + photoR2white;
+        photoR2 = (-1) * analogRead(photoresist2) + photoR2white + 10;
 
     else if (analogRead(photoresist2) > photoR2white)
         photoR2 = 20;
