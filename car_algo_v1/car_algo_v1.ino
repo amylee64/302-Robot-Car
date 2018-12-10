@@ -115,7 +115,7 @@ void loop() {
 // PHOTORESISTOR PORTION
    /*We're gonna pull photoresistor values! 
      this bit makes the maps the photoresist values to ~0 if it's on white, and like ~200 if it's on black */
-if(analogRead(dFront) < dThresh && flag == true){
+if(analogRead(dFront) < dThresh){
      if (analogRead(photoresist1) < photoR1white)
         photoR1 = (-1) * analogRead(photoresist1) + photoR1white + 5;
 
@@ -237,31 +237,22 @@ if(analogRead(dFront) < dThresh && flag == true){
 // red tape range for R3 is 442 +- 10
   Serial.print("first portion");
 }
-else if(flag == true && analogRead(dFront) > dThresh) {
-      digitalWrite(motorL1out, LOW);
-      digitalWrite(motorL2out, LOW);
-      digitalWrite(motorR1out, LOW);
-      digitalWrite(motorR2out, LOW);
-      Serial.print("found object");
-      delay(3000);
-      flag = false;
-}
 else{
-    Serial.print("second portion");
+   /* Serial.print("second portion");
     if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
-
+  */
       digitalWrite(motorL1out, LOW);
       digitalWrite(motorL2out, LOW);
       digitalWrite(motorR1out, LOW);
       digitalWrite(motorR2out, LOW); 
-    
+   /* 
   }
   else{
       digitalWrite(motorL1out, HIGH);
       digitalWrite(motorL2out, LOW);
       digitalWrite(motorR1out, HIGH);
       digitalWrite(motorR2out, LOW);
-  }
+  }*/
 }
 
 }
