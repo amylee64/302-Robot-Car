@@ -6,7 +6,7 @@ const int motorR2out = 5;            // pin 8 = right motor (lead 2)
 
 const int photoresist1 = A2;      // setting each photoresistor and distance sensor to its own 
 const int photoresist2 = A1;      // analog input pin on the Arduino 
-const int photoresist3 = A0;      // *** WE CAN CHANGE THIS IF NEEDED ***
+const int photoresist3 = A0;      // *** WEd CAN CHANGE THIS IF NEEDED ***
 const int dFront = A6;            // distance sensor variables
 const int dLeft = A7;
 const int dRight = A5;
@@ -76,7 +76,7 @@ void setup() {
 
   delay(3000);       // 3 second delay before car starts moving (easier to manage bot physically)
 
-  analogWrite(motorL1out, 100);
+  analogWrite(motorL1out, 100);     // initial car motor values
   analogWrite(motorL2out, 0);
   analogWrite(motorR1out, 100);
   analogWrite(motorR2out, 0); 
@@ -84,18 +84,12 @@ void setup() {
   photoR1white = analogRead(photoresist1);
   photoR2white = analogRead(photoresist2);
   photoR3white = analogRead(photoresist3);
-                         // 3 second delay before car starts moving (easier to manage bot physically)
-
-
+              
   // insert more pin initializations as needed
 
 }
 
 void loop() {
-
-
-  
-  
   /* P1: car stays in the middle of the black tape:
    *    - Check for black tape (photoresistor), then check for obstacle (distance sensor), repeat
    *    - Black = certain value from photoresistor reading, check for this continuously
@@ -118,9 +112,10 @@ void loop() {
 //      digitalWrite(motorR1out, HIGH);
 //      digitalWrite(motorR2out, LOW); 
 
+// PHOTORESISTOR PORTION
    /*We're gonna pull photoresistor values! 
      this bit makes the maps the photoresist values to ~0 if it's on white, and like ~200 if it's on black */
-if(analogRead(dFront) < dThresh && flag){
+if(analogRead(dFront) < dThresh){
      if (analogRead(photoresist1) < photoR1white)
         photoR1 = (-1) * analogRead(photoresist1) + photoR1white + 5;
 
@@ -169,11 +164,12 @@ if(analogRead(dFront) < dThresh && flag){
   /*we will approximate the center of the tape*/
 
 /*  center = (photoR1avg * (-1))/(photoR1avg + photoR2avg + photoR3avg) + (photoR3avg)/(photoR1avg + photoR2avg + photoR3avg);
-
   /*then smooth that value out too*/
 
   /*centeravg = (7*centeravg + center)/8;*/
 
+
+  // Calculation of photoresistor data needed for car to navigate black tape path
   if(photoR1avg > photoR2avg && photoR1avg > photoR3avg || ( photoR1avg && photoR2avg > 8000)){
       center = -1;
   } else if (photoR2avg > photoR1avg && photoR2avg > photoR3avg){
@@ -181,7 +177,8 @@ if(analogRead(dFront) < dThresh && flag){
   } else if (photoR3avg > photoR1avg && photoR3avg > photoR2avg|| ( photoR3avg && photoR2avg > 8000)){
       center = 1;
   }
-  
+
+  // When car moving on black tape 
   if(center > 0){
       digitalWrite(motorL1out, HIGH);
       digitalWrite(motorL2out, LOW);
@@ -214,39 +211,28 @@ if(analogRead(dFront) < dThresh && flag){
 
 
 
+// DISTANCE SENSOR PORTION
+
 // red tape range for R1 is 473 +-10
 // red tape range for R2 is 525 +-10
 // red tape range for R3 is 442 +- 10
-
-
-   
-  Serial.println(analogRead(dFront));
-  Serial.print(" ");
-}
-else if(flag && analogRead(dFront) > dThresh) {
-      digitalWrite(motorL1out, LOW);
-      digitalWrite(motorL2out, LOW);
-      digitalWrite(motorR1out, LOW);
-      digitalWrite(motorR2out, LOW);
-
-      flag = false;
-      Serial.println(analogRead(dFront));
-      Serial.print(" ");
+  Serial.print("first portion");
 }
 else{
+   /* Serial.print("second portion");
     if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
-
+  */
       digitalWrite(motorL1out, LOW);
       digitalWrite(motorL2out, LOW);
       digitalWrite(motorR1out, LOW);
       digitalWrite(motorR2out, LOW); 
-    
+   /* 
   }
   else{
       digitalWrite(motorL1out, HIGH);
       digitalWrite(motorL2out, LOW);
       digitalWrite(motorR1out, HIGH);
       digitalWrite(motorR2out, LOW);
-  }
+  }*/
 }
 
