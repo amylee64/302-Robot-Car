@@ -232,7 +232,7 @@ void loop() {
 // red tape range for R2 is 525 +-10
 // red tape range for R3 is 442 +- 10
 
-  if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
+  if ((493 > analogRead(photoresist1) > 453) && (545 > analogRead(photoresist2) > 505) && (462 > analogRead(photoresist1) > 422)){
 
       digitalWrite(motorL1out, LOW);
       digitalWrite(motorL2out, LOW);
