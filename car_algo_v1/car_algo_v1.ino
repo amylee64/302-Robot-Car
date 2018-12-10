@@ -26,7 +26,7 @@ int photoR1avg = 0;
 int photoR2avg = 0;
 int photoR3avg = 0;
 
-int disThresh = 400;
+int dThresh = 400;
 
 int photoR1white = 0;
 int photoR2white = 0;
@@ -63,9 +63,9 @@ void setup() {
   pinMode(photoresist1, INPUT);          // pin initializations for photo resistor sensors
   pinMode(photoresist2, INPUT); 
   pinMode(photoresist3, INPUT); 
-  pinMode(d1, INPUT); 
-  pinMode(d2, INPUT);                    // pin initializations for distance sensors
-  pinMode(d3, INPUT); 
+  pinMode(dFront, INPUT); 
+  pinMode(dLeft, INPUT);                    // pin initializations for distance sensors
+  pinMode(dRight, INPUT); 
   Serial.begin(9600);
 
   pinMode(ledred, OUTPUT);          // pin initializations for RGB led
@@ -128,7 +128,7 @@ if(analogRead(dFront) < dThresh && flag){
         photoR1 = 0;
   
     if (analogRead(photoresist2) < photoR2white)
-        photoR2 = (-1) * analogRead(photoresist2) + photoR2white;
+        photoR2 = (-1) * analogRead(photoresist2) + photoR2white + 10;
 
     else if (analogRead(photoresist2) > photoR2white)
         photoR2 = 20;
@@ -262,10 +262,10 @@ else{
     
   }
   else{
-      digitalWrite(motorL1out, HIGH;
-      digitalWrite(motorL2out, HIGH);
+      digitalWrite(motorL1out, HIGH);
+      digitalWrite(motorL2out, LOW);
       digitalWrite(motorR1out, HIGH);
-      digitalWrite(motorR2out, HIGH);
+      digitalWrite(motorR2out, LOW);
   }
 }
 
