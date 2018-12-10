@@ -24,7 +24,7 @@ int photoR1avg = 0;
 int photoR2avg = 0;
 int photoR3avg = 0;
 
-int disThresh = 0;
+int disThresh = 400;
 
 int photoR1white = 0;
 int photoR2white = 0;
@@ -258,11 +258,5 @@ else{
       Serial.println(analogRead(dFront));
       Serial.print(" ");
 }
- /*else {
-    digitalWrite(motorL1out, LOW);
-    digitalWrite(motorL2out, LOW);
-    digitalWrite(motorR1out, LOW);
-    digitalWrite(motorR2out, LOW);
- } */
 
 }
