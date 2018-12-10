@@ -41,9 +41,9 @@ int rightMotor1 = 0;               // write values to these variables to control
 int rightMotor2 = 0;
 
 
-// red tape range for R1 is 495 +-5
-// red tape range for R2 is 440 +-5
-// red tape range for R3 is 448 +- 10
+// red tape range for R1 is 473 +-10
+// red tape range for R2 is 525 +-10
+// red tape range for R3 is 442 +- 10
 
 
 // add more variables as needed
@@ -228,8 +228,22 @@ void loop() {
 //    }
 
 
+// red tape range for R1 is 473 +-10
+// red tape range for R2 is 525 +-10
+// red tape range for R3 is 442 +- 10
+
+  if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
+
+      digitalWrite(motorL1out, LOW);
+      digitalWrite(motorL2out, LOW);
+      digitalWrite(motorR1out, LOW);
+      digitalWrite(motorR2out, LOW); 
+    
+  }
+
+
    
-  Serial.println(analogRead(photoresist3));
+  Serial.println(analogRead(photoresist1));
   Serial.print(" ");
 
  /*else {
