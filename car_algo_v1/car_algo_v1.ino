@@ -4,9 +4,9 @@ const int motorL2out = 3;           // pin 10 = left motor (lead 2)
 const int motorR1out = 4;            // pin 9 = right motor (lead 1)
 const int motorR2out = 5;            // pin 8 = right motor (lead 2)
 
-const int photoresist1 = A0;      // setting each photoresistor and distance sensor to its own 
+const int photoresist1 = A2;      // setting each photoresistor and distance sensor to its own 
 const int photoresist2 = A1;      // analog input pin on the Arduino 
-const int photoresist3 = A2;      // *** WE CAN CHANGE THIS IF NEEDED ***
+const int photoresist3 = A0;      // *** WE CAN CHANGE THIS IF NEEDED ***
 const int d1 = A3;
 const int d2 = A4;
 const int d3 = A5;
@@ -169,11 +169,11 @@ void loop() {
 
   /*centeravg = (7*centeravg + center)/8;*/
 
-  if(photoR1avg > photoR2avg && photoR1avg > photoR3avg || ( photoR1avg && photoR2avg > 500)){
+  if(photoR1avg > photoR2avg && photoR1avg > photoR3avg || ( photoR1avg && photoR2avg > 8000)){
       center = -1;
   } else if (photoR2avg > photoR1avg && photoR2avg > photoR3avg){
       center = 0;
-  } else if (photoR3avg > photoR1avg && photoR3avg > photoR2avg|| ( photoR3avg && photoR2avg > 500)){
+  } else if (photoR3avg > photoR1avg && photoR3avg > photoR2avg|| ( photoR3avg && photoR2avg > 8000)){
       center = 1;
   }
   
