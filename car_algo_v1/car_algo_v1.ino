@@ -92,10 +92,6 @@ void setup() {
 }
 
 void loop() {
-
-
-  
-  
   /* P1: car stays in the middle of the black tape:
    *    - Check for black tape (photoresistor), then check for obstacle (distance sensor), repeat
    *    - Black = certain value from photoresistor reading, check for this continuously
@@ -236,22 +232,19 @@ if(analogRead(dFront) < dThresh && flag == true){
 // red tape range for R1 is 473 +-10
 // red tape range for R2 is 525 +-10
 // red tape range for R3 is 442 +- 10
-
-
-   
-  Serial.println("first portion");
+  Serial.print("first portion");
 }
 else if(flag == true && analogRead(dFront) > dThresh) {
       digitalWrite(motorL1out, LOW);
       digitalWrite(motorL2out, LOW);
       digitalWrite(motorR1out, LOW);
       digitalWrite(motorR2out, LOW);
-
+      Serial.print("found object");
+      delay(3000);
       flag = false;
-      Serial.println("found object");
 }
 else{
-    Serial.println("second portion");
+    Serial.print("second portion");
     if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
 
       digitalWrite(motorL1out, LOW);
