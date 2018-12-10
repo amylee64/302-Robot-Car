@@ -218,23 +218,19 @@ if(photoR1avg > photoR2avg && photoR1avg > photoR3avg || ( photoR1avg && photoR2
 // red tape range for R2 is 525 +-10
 // red tape range for R3 is 442 +- 10
 }
-else if (digitalRead(dFront) > dThresh && flag){
+else if (digitalRead(dFront) > dThresh){
    /* Serial.print("second portion");
     if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
   */
-      analogWrite(ledred, 0);
-      analogWrite(ledblue, 50);
-      analogWrite(ledgreen, 50);
-      if(digitalRead(dFront) > dThresh){
+        analogWrite(ledred, 0);
+        analogWrite(ledblue, 50);
+        analogWrite(ledgreen, 50);
         digitalWrite(motorL1out, LOW);
         digitalWrite(motorL2out, LOW);
         digitalWrite(motorR1out, LOW);
         digitalWrite(motorR2out, LOW);
-      }
-      else{
         flag = false;
-      }
-}else{
+}else if(!flag && digitalRead(dFront) > dThresh){
       if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){ //found red
         digitalWrite(motorL1out, LOW);
         digitalWrite(motorL2out, LOW);
