@@ -26,7 +26,7 @@ int photoR1avg = 0;
 int photoR2avg = 0;
 int photoR3avg = 0;
 
-int disThresh = 400;
+int dThresh = 400;
 
 int photoR1white = 0;
 int photoR2white = 0;
@@ -63,27 +63,27 @@ void setup() {
   pinMode(photoresist1, INPUT);          // pin initializations for photo resistor sensors
   pinMode(photoresist2, INPUT); 
   pinMode(photoresist3, INPUT); 
-  pinMode(d1, INPUT); 
-  pinMode(d2, INPUT);                    // pin initializations for distance sensors
-  pinMode(d3, INPUT); 
+  pinMode(dFront, INPUT); 
+  pinMode(dLeft, INPUT);                    // pin initializations for distance sensors
+  pinMode(dRight, INPUT); 
   Serial.begin(9600);
 
   pinMode(ledred, OUTPUT);          // pin initializations for RGB led
   pinMode(ledblue, OUTPUT); 
   pinMode(ledgreen, OUTPUT);
 
-
-
-  delay(3000);       // 3 second delay before car starts moving (easier to manage bot physically)
-
-  analogWrite(motorL1out, 100);
-  analogWrite(motorL2out, 0);
-  analogWrite(motorR1out, 100);
-  analogWrite(motorR2out, 0); 
+  delay(3000);
 
   photoR1white = analogRead(photoresist1);
   photoR2white = analogRead(photoresist2);
   photoR3white = analogRead(photoresist3);
+
+  digitalWrite(motorL1out, HIGH);
+  digitalWrite(motorL2out, LOW);
+  digitalWrite(motorR1out, HIGH);
+  digitalWrite(motorR2out, LOW); 
+
+  delay(1000);  
                          // 3 second delay before car starts moving (easier to manage bot physically)
 
 
