@@ -70,18 +70,18 @@ void setup() {
   pinMode(ledblue, OUTPUT); 
   pinMode(ledgreen, OUTPUT);
 
-
-
-  delay(3000);       // 3 second delay before car starts moving (easier to manage bot physically)
-
-  analogWrite(motorL1out, 100);
-  analogWrite(motorL2out, 0);
-  analogWrite(motorR1out, 100);
-  analogWrite(motorR2out, 0); 
+  delay(3000);
 
   photoR1white = analogRead(photoresist1);
   photoR2white = analogRead(photoresist2);
   photoR3white = analogRead(photoresist3);
+
+  digitalWrite(motorL1out, HIGH);
+  digitalWrite(motorL2out, LOW);
+  digitalWrite(motorR1out, HIGH);
+  digitalWrite(motorR2out, LOW); 
+
+  delay(1000);  
                          // 3 second delay before car starts moving (easier to manage bot physically)
 
 
