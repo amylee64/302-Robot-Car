@@ -234,7 +234,7 @@ else if (analogRead(dFront) > dThresh){
          analogWrite(ledred, 0);
         analogWrite(ledblue, 0);
         analogWrite(ledgreen, 0);
-      if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){ //found red
+      if ((500 > analogRead(photoresist1)) && (600 > analogRead(photoresist2)) && (490 > analogRead(photoresist1))){ //found red
         digitalWrite(motorL1out, LOW);
         digitalWrite(motorL2out, LOW);
         digitalWrite(motorR1out, LOW);
@@ -246,6 +246,6 @@ else if (analogRead(dFront) > dThresh){
         digitalWrite(motorR2out, LOW);
       }
   }
-  Serial.println(analogRead(dFront));
+  Serial.println(analogRead(photoresist3));
   Serial.print(" ");
 }
