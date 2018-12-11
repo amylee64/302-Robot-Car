@@ -200,8 +200,8 @@ void loop() {
           digitalWrite(motorR2out, LOW);
     
           analogWrite(ledred, 0);
-          analogWrite(ledblue, 255);
-          analogWrite(ledgreen, 0);
+          analogWrite(ledblue, 0);
+          analogWrite(ledgreen, 255);
           
       } else {
           digitalWrite(motorL1out, HIGH);
@@ -211,57 +211,55 @@ void loop() {
     
           
           analogWrite(ledred, 0);
-          analogWrite(ledblue, 0);
-          analogWrite(ledgreen, 255);
+          analogWrite(ledblue, 255);
+          analogWrite(ledgreen, 0);
        }
     
     
     // DISTANCE SENSOR PORTION
     
-    }
-    
-    else if (analogRead(dFront) > dThresh){ // if obstacle detected in front of car?      
-       /* Serial.print("second portion");
-        if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
-      */
-            analogWrite(ledred, 0);
-            analogWrite(ledblue, 0);
-            analogWrite(ledgreen, 0);
-            digitalWrite(motorL1out, LOW);
-            digitalWrite(motorL2out, LOW);
-            digitalWrite(motorR1out, LOW);
-            digitalWrite(motorR2out, LOW);
-            flag = false;                               // if black tape path no longer detected? 
+    } else if (analogRead(dFront) > dThresh){ // if obstacle detected in front of car?      
+         /* Serial.print("second portion");
+          if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
+        */
+              analogWrite(ledred, 0);
+              analogWrite(ledblue, 0);
+              analogWrite(ledgreen, 0);
+              digitalWrite(motorL1out, LOW);
+              digitalWrite(motorL2out, LOW);
+              digitalWrite(motorR1out, LOW);
+              digitalWrite(motorR2out, LOW);
+              flag = false;                               // if black tape path no longer detected? 
+              
+            } else if (flag == false && analogRead(dFront) < dThresh) {         // if no black tape detected, car moves based on distance sensor readings
+              analogWrite(ledred, 0);
+              analogWrite(ledblue, 0);
+              analogWrite(ledgreen, 0);
             
-          } else if (flag == false && analogRead(dFront) < dThresh) {         // if no black tape detected, car moves based on distance sensor readings
-            analogWrite(ledred, 0);
-            analogWrite(ledblue, 0);
-            analogWrite(ledgreen, 0);
-          
-          } else if ((flag == false) && (500 > analogRead(photoresist1)) && (600 > analogRead(photoresist2)) && (490 > analogRead(photoresist1))) { // found red tape
-                        digitalWrite(motorL1out, LOW);
-                        digitalWrite(motorL2out, LOW);
-                        digitalWrite(motorR1out, LOW);
-                        digitalWrite(motorR2out, LOW);
-          
-          } else if ((flag == false) && (analogRead(dRight) < dThresh)) {             // move car to the left if obstacle detected on the right? 
-                        digitalWrite(motorL1out, LOW);
-                        digitalWrite(motorL2out, HIGH);
-                        digitalWrite(motorR1out, HIGH);
-                        digitalWrite(motorR2out, LOW);
-          
-          } else if (flag == false && analogRead(dLeft) < dThresh) {               // move car to the right if obstacle detected on the left? 
+            } else if ((flag == false) && (500 > analogRead(photoresist1)) && (600 > analogRead(photoresist2)) && (490 > analogRead(photoresist1))) { // found red tape
+                          digitalWrite(motorL1out, LOW);
+                          digitalWrite(motorL2out, LOW);
+                          digitalWrite(motorR1out, LOW);
+                          digitalWrite(motorR2out, LOW);
+            
+            } else if ((flag == false) && (analogRead(dRight) < dThresh)) {             // move car to the left if obstacle detected on the right? 
+                          digitalWrite(motorL1out, LOW);
+                          digitalWrite(motorL2out, HIGH);
+                          digitalWrite(motorR1out, HIGH);
+                          digitalWrite(motorR2out, LOW);
+            
+            } else if (flag == false && analogRead(dLeft) < dThresh) {               // move car to the right if obstacle detected on the left? 
+                          digitalWrite(motorL1out, HIGH);
+                          digitalWrite(motorL2out, LOW);
+                          digitalWrite(motorR1out, LOW);
+                          digitalWrite(motorR2out, HIGH);
+            
+            } else{                                        // move car straight if no obstacle detected 
                         digitalWrite(motorL1out, HIGH);
                         digitalWrite(motorL2out, LOW);
-                        digitalWrite(motorR1out, LOW);
-                        digitalWrite(motorR2out, HIGH);
-          
-          } else{                                        // move car straight if no obstacle detected 
-                      digitalWrite(motorL1out, HIGH);
-                      digitalWrite(motorL2out, LOW);
-                      digitalWrite(motorR1out, HIGH);
-                      digitalWrite(motorR2out, LOW);
-          }
-      }
+                        digitalWrite(motorR1out, HIGH);
+                        digitalWrite(motorR2out, LOW);
+            }
+     
       
-
+}
