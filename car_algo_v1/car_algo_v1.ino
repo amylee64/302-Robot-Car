@@ -236,19 +236,19 @@ void loop() {
               analogWrite(ledblue, 0);
               analogWrite(ledgreen, 0);
             
-            } else if ((flag == false) && (500 > analogRead(photoresist1)) && (600 > analogRead(photoresist2)) && (490 > analogRead(photoresist1))) { // found red tape
+            } else if ((flag == false) && (500 > analogRead(photoresist1)) && (600 > analogRead(photoresist2)) && (500 > analogRead(photoresist1))) { // found red tape
                           digitalWrite(motorL1out, LOW);
                           digitalWrite(motorL2out, LOW);
                           digitalWrite(motorR1out, LOW);
                           digitalWrite(motorR2out, LOW);
             
-            } else if ((flag == false) && (analogRead(dRight) < dThresh)) {             // move car to the left if obstacle detected on the right? 
+            } else if ((flag == false) && (analogRead(dRight) > dThresh)) {             // move car to the left if obstacle detected on the right? 
                           digitalWrite(motorL1out, LOW);
                           digitalWrite(motorL2out, HIGH);
                           digitalWrite(motorR1out, HIGH);
                           digitalWrite(motorR2out, LOW);
             
-            } else if (flag == false && analogRead(dLeft) < dThresh) {               // move car to the right if obstacle detected on the left? 
+            } else if (flag == false && analogRead(dLeft) > dThresh) {               // move car to the right if obstacle detected on the left? 
                           digitalWrite(motorL1out, HIGH);
                           digitalWrite(motorL2out, LOW);
                           digitalWrite(motorR1out, LOW);
