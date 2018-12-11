@@ -174,14 +174,23 @@ void loop() {
     
     
       // Calculation of photoresistor data needed for car to navigate black tape path
+//    if (photoR1avg > photoR2avg && photoR1avg > photoR3avg || (photoR1avg > 8000 && photoR2avg > 8000)){
+//          center = -1;
+//      } else if (photoR2avg > photoR1avg && photoR2avg > photoR3avg){
+//          center = 0;
+//      } else if (photoR3avg > photoR1avg && photoR3avg > photoR2avg|| ( photoR3avg && photoR2avg > 8000)){
+//          center = 1;
+//      }
+
     if (photoR1avg > photoR2avg && photoR1avg > photoR3avg || ( photoR1avg && photoR2avg > 8000)){
           center = -1;
       } else if (photoR2avg > photoR1avg && photoR2avg > photoR3avg){
           center = 0;
-      } else if (photoR3avg > photoR1avg && photoR3avg > photoR2avg|| ( photoR3avg && photoR2avg > 8000)){
+      } else if (photoR3avg > photoR1avg && photoR3avg > photoR2avg || (photoR3avg > 8000 && photoR2avg > 8000)){
           center = 1;
       }
-    
+
+
       // When car moving on black tape 
       if(center > 0){
           digitalWrite(motorL1out, HIGH);
