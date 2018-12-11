@@ -116,7 +116,7 @@ void loop() {
 // PHOTORESISTOR PORTION
    /*We're gonna pull photoresistor values! 
      this bit makes the maps the photoresist values to ~0 if it's on white, and like ~200 if it's on black */
-if(digitalRead(dFront) < dThresh && flag){
+if((analogRead(dFront) < dThresh) && (flag == true)){
      if (analogRead(photoresist1) < photoR1white)
         photoR1 = (-1) * analogRead(photoresist1) + photoR1white + 20;
 
@@ -218,19 +218,22 @@ if(photoR1avg > photoR2avg && photoR1avg > photoR3avg || ( photoR1avg && photoR2
 // red tape range for R2 is 525 +-10
 // red tape range for R3 is 442 +- 10
 }
-else if (digitalRead(dFront) > dThresh){
+else if (analogRead(dFront) > dThresh){
    /* Serial.print("second portion");
     if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
   */
         analogWrite(ledred, 0);
-        analogWrite(ledblue, 50);
-        analogWrite(ledgreen, 50);
+        analogWrite(ledblue, 0);
+        analogWrite(ledgreen, 0);
         digitalWrite(motorL1out, LOW);
         digitalWrite(motorL2out, LOW);
         digitalWrite(motorR1out, LOW);
         digitalWrite(motorR2out, LOW);
         flag = false;
-}else if(!flag && digitalRead(dFront) > dThresh){
+}else if(flag == false && analogRead(dFront) < dThresh){
+         analogWrite(ledred, 0);
+        analogWrite(ledblue, 0);
+        analogWrite(ledgreen, 0);
       if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){ //found red
         digitalWrite(motorL1out, LOW);
         digitalWrite(motorL2out, LOW);
@@ -243,4 +246,6 @@ else if (digitalRead(dFront) > dThresh){
         digitalWrite(motorR2out, LOW);
       }
   }
+  Serial.println(analogRead(dFront));
+  Serial.print(" ");
 }
