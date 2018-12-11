@@ -214,11 +214,7 @@ if(photoR1avg > photoR2avg && photoR1avg > photoR3avg || ( photoR1avg && photoR2
 
 // DISTANCE SENSOR PORTION
 
-// red tape range for R1 is 473 +-10
-// red tape range for R2 is 525 +-10
-// red tape range for R3 is 442 +- 10
-}
-else if (analogRead(dFront) > dThresh){
+}else if (analogRead(dFront) > dThresh){
    /* Serial.print("second portion");
     if ((483 > analogRead(photoresist1) > 463) && (535 > analogRead(photoresist2) > 515) && (452 > analogRead(photoresist1) > 432)){
   */
@@ -239,11 +235,26 @@ else if (analogRead(dFront) > dThresh){
         digitalWrite(motorL2out, LOW);
         digitalWrite(motorR1out, LOW);
         digitalWrite(motorR2out, LOW);
+      }
+      if((analogRead(dRight) < dThresh)){
+                    digitalWrite(motorL1out, LOW);
+                    digitalWrite(motorL2out, HIGH);
+                    digitalWrite(motorR1out, HIGH);
+                    digitalWrite(motorR2out, LOW);
+      }
+      if(analogRead(dLeft) < dThresh){
+                    digitalWrite(motorL1out, HIGH);
+                    digitalWrite(motorL2out, LOW);
+                    digitalWrite(motorR1out, LOW);
+                    digitalWrite(motorR2out, HIGH);
+      
       }else{
-        digitalWrite(motorL1out, HIGH);
-        digitalWrite(motorL2out, LOW);
-        digitalWrite(motorR1out, HIGH);
-        digitalWrite(motorR2out, LOW);
+
+        
+          digitalWrite(motorL1out, HIGH);
+          digitalWrite(motorL2out, LOW);
+          digitalWrite(motorR1out, HIGH);
+          digitalWrite(motorR2out, LOW);
       }
   }
   Serial.println(analogRead(photoresist3));
