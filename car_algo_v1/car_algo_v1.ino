@@ -257,7 +257,7 @@ void loop() {
                           digitalWrite(motorR1out, HIGH);
                           digitalWrite(motorR2out, LOW);
             
-            } else if (flag == false && analogRead(dLeft) > dThresh) {               // move car to the right if obstacle detected on the left? 
+            } else if ((flag == false) && (analogRead(dLeft) > dThresh)) {               // move car to the right if obstacle detected on the left? 
                           digitalWrite(motorL1out, HIGH);
                           digitalWrite(motorL2out, LOW);
                           digitalWrite(motorR1out, LOW);
