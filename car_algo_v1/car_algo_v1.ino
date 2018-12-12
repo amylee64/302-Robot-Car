@@ -18,7 +18,7 @@
     
     // Variable Declarations
     bool flag = true;                 // flag for when car is on black tape path?
-    
+    bool flag2 = true;
     int photoR1 = 0;                  // initialize photoresistor values to 0
     int photoR2 = 0;                  // use analogRead in main code
     int photoR3 = 0;
@@ -241,7 +241,15 @@ void loop() {
               digitalWrite(motorR1out, LOW);
               digitalWrite(motorR2out, LOW);
               flag = false;                               // if black tape path no longer detected? 
-              
+              if(flag2 == true){
+                delay(5000);
+                digitalWrite(motorL1out, HIGH);
+                digitalWrite(motorL2out, LOW);
+                digitalWrite(motorR1out, HIGH);
+                 digitalWrite(motorR2out, LOW);
+                 delay(2000);
+                 flag2 = false;
+              }
 //            } else if (flag == false && analogRead(dFront) < dThresh) {         // if no black tape detected, car moves based on distance sensor readings
 //              analogWrite(ledred, 0);
 //              analogWrite(ledblue, 0);
