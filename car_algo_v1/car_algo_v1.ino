@@ -114,8 +114,6 @@ void loop() {
     
     // PHOTORESISTOR PORTION
 
-    Serial.println(analogRead(photoresist3));
-    Serial.print(" ");
        /*We're gonna pull photoresistor values! 
          this bit makes the maps the photoresist values to ~0 if it's on white, and like ~200 if it's on black */
     if ((analogRead(dFront) < dThresh) && (flag == true)) {   // What is this for? Is it to make sure no black tape has been read? 
@@ -126,11 +124,11 @@ void loop() {
         else if (analogRead(photoresist1) > photoR1white)
             photoR1 = 0;
       
-        if (analogRead(photoresist2) < photoR2white)
+        if (analogRead(photoresist2) < photoR2white - 20)
             photoR2 = (-1) * analogRead(photoresist2) + photoR2white;
     
-        else if (analogRead(photoresist2) > photoR2white)
-            photoR2 = 5;
+        else if (analogRead(photoresist2) > photoR2white - 20)
+            photoR2 = 10;
             
         if (analogRead(photoresist3) < photoR3white)
             photoR3 = (-1) * analogRead(photoresist3) + photoR3white + 20;
@@ -165,6 +163,10 @@ void loop() {
     
         else if (photoR3avg < 0)
             photoR3avg = 0; 
+
+
+    Serial.println((photoR3avg));
+    Serial.print(" ");
       /* we will approximate the center of the tape */
     
     /*  center = (photoR1avg * (-1))/(photoR1avg + photoR2avg + photoR3avg) + (photoR3avg)/(photoR1avg + photoR2avg + photoR3avg);
@@ -182,17 +184,17 @@ void loop() {
 //          center = 1;
 //      }
 
-    if (photoR1avg > photoR2avg && photoR1avg > photoR3avg || ( photoR1avg > 8000 && photoR2avg > 8000)){
+    if (photoR1avg > photoR2avg && photoR1avg > photoR3avg || ( photoR1avg > 2000 && photoR2avg > 400)){
           center = -1;
       } else if (photoR2avg > photoR1avg && photoR2avg > photoR3avg){
           center = 0;
-      } else if (photoR3avg > photoR1avg && photoR3avg > photoR2avg || (photoR3avg > 8000 && photoR2avg > 8000)){
+      } else if (photoR3avg > photoR1avg && photoR3avg > photoR2avg || (photoR3avg > 1200 && photoR2avg > 400)){
           center = 1;
       }
 
 
       // When car moving on black tape 
-      if(center > 0){
+      if(center > 0 && flag == true){
           digitalWrite(motorL1out, HIGH);
           digitalWrite(motorL2out, LOW);
           digitalWrite(motorR1out, LOW);
@@ -202,7 +204,7 @@ void loop() {
           analogWrite(ledblue, 0);
           analogWrite(ledgreen, 255);
           
-      } else if (center < 0){
+      } else if (center < 0 && flag == true){
           digitalWrite(motorL1out, LOW);
           digitalWrite(motorL2out, HIGH);
           digitalWrite(motorR1out, HIGH);
@@ -240,30 +242,35 @@ void loop() {
               digitalWrite(motorR2out, LOW);
               flag = false;                               // if black tape path no longer detected? 
               
-            } else if (flag == false && analogRead(dFront) < dThresh) {         // if no black tape detected, car moves based on distance sensor readings
-              analogWrite(ledred, 0);
-              analogWrite(ledblue, 0);
-              analogWrite(ledgreen, 0);
+//            } else if (flag == false && analogRead(dFront) < dThresh) {         // if no black tape detected, car moves based on distance sensor readings
+//              analogWrite(ledred, 0);
+//              analogWrite(ledblue, 0);
+//              analogWrite(ledgreen, 0);
             
-            } else if ((flag == false) && (500 > analogRead(photoresist1)) && (600 > analogRead(photoresist2)) && (500 > analogRead(photoresist1))) { // found red tape
+            } else if ((flag == false) && (550 > analogRead(photoresist1)) && (650 > analogRead(photoresist2)) && (550 > analogRead(photoresist1))) { // found red tape
+                          digitalWrite(motorL1out, LOW);
+                          digitalWrite(motorL2out, HIGH);
+                          digitalWrite(motorR1out, LOW);
+                          digitalWrite(motorR2out, HIGH);
                           digitalWrite(motorL1out, LOW);
                           digitalWrite(motorL2out, LOW);
                           digitalWrite(motorR1out, LOW);
                           digitalWrite(motorR2out, LOW);
+                          
             
-            } else if ((flag == false) && (analogRead(dRight) > dThresh)) {             // move car to the left if obstacle detected on the right? 
-                          digitalWrite(motorL1out, LOW);
-                          digitalWrite(motorL2out, HIGH);
-                          digitalWrite(motorR1out, HIGH);
-                          digitalWrite(motorR2out, LOW);
-            
-            } else if ((flag == false) && (analogRead(dLeft) > dThresh)) {               // move car to the right if obstacle detected on the left? 
+            } else if ((flag == false) && (analogRead(dRight) > dThresh)) {             // move car to the left if obstacle detected on the right 
                           digitalWrite(motorL1out, HIGH);
                           digitalWrite(motorL2out, LOW);
                           digitalWrite(motorR1out, LOW);
                           digitalWrite(motorR2out, HIGH);
             
-            } else{                                        // move car straight if no obstacle detected 
+            } else if ((flag == false) && (analogRead(dLeft) > dThresh)) {               // move car to the right if obstacle detected on the left
+                          digitalWrite(motorL1out, LOW);
+                          digitalWrite(motorL2out, HIGH);
+                          digitalWrite(motorR1out, HIGH);
+                          digitalWrite(motorR2out, LOW);
+            
+            } else {                                        // move car straight if no obstacle detected 
                         digitalWrite(motorL1out, HIGH);
                         digitalWrite(motorL2out, LOW);
                         digitalWrite(motorR1out, HIGH);
